@@ -18,11 +18,18 @@ public class Application {
         bank.add(account);
         bank.add(secondAccount);
 
-        var money = new Money();
-        money.setValue(100);
-        bank.deposit(FIRST_ACCOUNT_NUMBER, money);
+
+        var money = new Money(-1, Currency.PLN);
+        try {
+            bank.deposit(FIRST_ACCOUNT_NUMBER, money);
+        } catch (AccountNotFoundException | RuntimeException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.out.println("After deposit");
+        }
 
         bank.printReport();
+
 
         // equality of objects
         var boxOne = new Box(1);
@@ -45,12 +52,14 @@ public class Application {
             System.out.println(s.name);
         }
 
-        printShapeInfo(circle);
-        printShapeInfo(square);
+
+
+        var app = new Application();
+        app.printShapeInfo(circle);
+        app.printShapeInfo(square);
     }
 
-
-    public static void printShapeInfo(Shape shape) {
+    public  void printShapeInfo(Shape shape) {
         System.out.println(shape.getInfo());
     }
 

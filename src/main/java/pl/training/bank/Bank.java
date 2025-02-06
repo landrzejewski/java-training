@@ -25,31 +25,33 @@ public class Bank {
         System.out.println("Total balance: " + totalBalance);
     }
 
-    public boolean deposit(String accountNumber, Money money) {
+    public void deposit(String accountNumber, Money money) throws AccountNotFoundException {
         var result = repository.findByNumber(accountNumber);
         if (result.isPresent()) {
             var account = result.get();
             account.deposit(money);
-            return true;
+        } else {
+            throw new AccountNotFoundException(accountNumber);
         }
-        return false;
     }
 
-    public boolean withdraw(String accountNumber, Money money) {
+    public void withdraw(String accountNumber, Money money) throws AccountNotFoundException {
         var result = repository.findByNumber(accountNumber);
         if (result.isPresent()) {
             var account = result.get();
             account.withdraw(money);
-            return true;
+        } else {
+            throw new AccountNotFoundException(accountNumber);
         }
-        return false;
     }
 
-    public void transfer(String fromAccountNumber, String toAccountNumber, Money money) {
+    public void transfer(String fromAccountNumber, String toAccountNumber, Money money) throws AccountNotFoundException {
         withdraw(fromAccountNumber, money);
-        var result = deposit(toAccountNumber, money);
-        if (!result) {
+        try {
+            deposit(toAccountNumber, money);
+        } catch (AccountNotFoundException ex) {
             deposit(fromAccountNumber, money);
+            throw ex;
         }
     }
 

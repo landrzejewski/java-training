@@ -10,13 +10,13 @@ public class Account {
     }
 
     public void deposit(Money money) {
-        balance.add(money);
+        balance = balance.add(money);
     }
 
     public boolean withdraw(Money money) {
         boolean result = false;
         if (balance.isGreaterOrEqual(money)) {
-            balance.subtract(money);
+            balance = balance.subtract(money);
             result = true;
         }
         return result;
