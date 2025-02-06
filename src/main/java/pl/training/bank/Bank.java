@@ -2,24 +2,22 @@ package pl.training.bank;
 
 public class Bank {
 
-    private String name = "";
-    private Account[] accounts = new Account[5];
-    private int index;
+    private final String name;
+    private final AccountRepository repository;
+
+    public Bank(String name, AccountRepository accountRepository) {
+        this.name = name;
+        this.repository = accountRepository;
+    }
 
     public void add(Account account) {
-        if (index == accounts.length - 1) {
-            var newAccounts = new Account[accounts.length * 2];
-            System.arraycopy(accounts, 0, newAccounts, 0, accounts.length);
-            accounts = newAccounts;
-        }
-        accounts[index++] = account;
+        repository.save(account);
     }
 
     public void printReport() {
         System.out.println("Bank balance:");
         var totalBalance = new Money();
-        for (int accountIndex = 0; accountIndex < index; accountIndex++) {
-            var account = accounts[accountIndex];
+        for (Account account : repository.findAll()) {
             System.out.println(account);
             totalBalance.add(account.getBalance());
         }
@@ -28,8 +26,9 @@ public class Bank {
     }
 
     public boolean deposit(String accountNumber, Money money) {
-        var account = getAccountByNumber(accountNumber);
-        if (account != null) {
+        var result = repository.findByNumber(accountNumber);
+        if (result.isPresent()) {
+            var account = result.get();
             account.deposit(money);
             return true;
         }
@@ -37,8 +36,9 @@ public class Bank {
     }
 
     public boolean withdraw(String accountNumber, Money money) {
-        var account = getAccountByNumber(accountNumber);
-        if (account != null) {
+        var result = repository.findByNumber(accountNumber);
+        if (result.isPresent()) {
+            var account = result.get();
             account.withdraw(money);
             return true;
         }
@@ -51,18 +51,6 @@ public class Bank {
         if (!result) {
             deposit(fromAccountNumber, money);
         }
-    }
-
-    private Account getAccountByNumber(String number) {
-        int accountIndex = 0;
-        while (accountIndex < index) {
-            var account = accounts[accountIndex];
-            if (account.hasNumber(number)) {
-                return account;
-            }
-            accountIndex++;
-        }
-        return null;
     }
 
 }

@@ -2,8 +2,12 @@ package pl.training.bank;
 
 public class Account {
 
-    private String number = "";
+    private final String number;
     private Money balance = new Money();
+
+    public Account(String number) {
+        this.number = number;
+    }
 
     public void deposit(Money money) {
         balance.add(money);
@@ -16,10 +20,6 @@ public class Account {
             result = true;
         }
         return result;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     public void setBalance(Money balance) {
