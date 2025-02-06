@@ -18,12 +18,12 @@ public class Application {
         bank.add(account);
         bank.add(secondAccount);
 
-
-        var money = new Money(-1, Currency.PLN);
         try {
+            var money = new Money(-1, Currency.PLN);
             bank.deposit(FIRST_ACCOUNT_NUMBER, money);
         } catch (AccountNotFoundException | RuntimeException e) {
-            throw new RuntimeException(e);
+            System.out.println("Exception: " + e);
+            return;
         } finally {
             System.out.println("After deposit");
         }
