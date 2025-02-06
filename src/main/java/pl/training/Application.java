@@ -14,13 +14,13 @@ public class Application {
         var account = new Account(FIRST_ACCOUNT_NUMBER);
         var secondAccount = new Account(SECOND_ACCOUNT_NUMBER);
 
-        AccountRepository repository = new ArrayAccountRepository();
+        AccountRepository repository = new HashMapAccountRepository(); // new ArrayListAccountRepository(); // new ArrayAccountRepository();
         var bank = new Bank("Java Bank", repository);
         bank.add(account);
         bank.add(secondAccount);
 
         try {
-            var money = new Money(BigDecimal.valueOf(-1), Currency.PLN);
+            var money = new Money(BigDecimal.valueOf(1), Currency.PLN);
             bank.deposit(FIRST_ACCOUNT_NUMBER, money);
         } catch (AccountNotFoundException | RuntimeException e) {
             System.out.println("Exception: " + e);

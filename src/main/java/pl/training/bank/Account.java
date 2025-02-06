@@ -26,6 +26,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
     public Money getBalance() {
         return balance;
     }

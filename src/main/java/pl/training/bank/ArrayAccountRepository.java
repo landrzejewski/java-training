@@ -2,6 +2,7 @@ package pl.training.bank;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class ArrayAccountRepository implements AccountRepository, Serializable {
@@ -24,10 +25,10 @@ public class ArrayAccountRepository implements AccountRepository, Serializable {
     }
 
     @Override
-    public Account[] findAll() {
+    public List<Account> findAll() {
         var result = new Account[index];
         System.arraycopy(accounts, ZERO_INDEX, result, ZERO_INDEX, index);
-        return result;
+        return Arrays.asList(result);
     }
 
     @Override
