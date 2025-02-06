@@ -2,6 +2,7 @@ package pl.training;
 
 import pl.training.bank.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Application {
@@ -19,7 +20,7 @@ public class Application {
         bank.add(secondAccount);
 
         try {
-            var money = new Money(-1, Currency.PLN);
+            var money = new Money(BigDecimal.valueOf(-1), Currency.PLN);
             bank.deposit(FIRST_ACCOUNT_NUMBER, money);
         } catch (AccountNotFoundException | RuntimeException e) {
             System.out.println("Exception: " + e);
