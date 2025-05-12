@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 public class TicTacToe {
 
-    private static final byte EMPTY = 0;
+    /*private static final byte EMPTY = 0;
     private static final byte PLAYER_X = 1;
-    private static final byte PLAYER_O = 2;
+    private static final byte PLAYER_O = 2;*/
+
+    private enum FieldValue { X, O, EMPTY }
     private static final int[][] winningSequences = {
             {0, 1, 2}, // top row
             {3, 4, 5}, // middle row
@@ -18,10 +20,17 @@ public class TicTacToe {
             {2, 4, 6}  // anti-diagonal
     };
 
-    private final byte[] board = new byte[9];
+    /*private final byte[] board = new byte[9];
     private byte currentPlayer = PLAYER_X;
-    private byte winner = EMPTY;
+    private byte winner = EMPTY;*/
+    private final FieldValue[] board = new FieldValue[9];
+    private FieldValue currentFieldValue = FieldValue.X;
+    private FieldValue winnerValue = FieldValue.EMPTY;
     private boolean isGameOver = false;
+
+    public TicTacToe() {
+        reset();
+    }
 
     public void printBoard() {
         for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
@@ -29,15 +38,15 @@ public class TicTacToe {
                 case EMPTY:
                     System.out.print("- ");
                     break;
-                case PLAYER_X:
+                case X:
                     System.out.print("X ");
                     break;
-                case PLAYER_O:
+                case O:
                     System.out.print("O ");
                     break;
             }
             if ((fieldIndex + 1) % 3 == 0) {
-                System.out.println("");
+                System.out.println();
             }
         }
     }
@@ -47,9 +56,9 @@ public class TicTacToe {
         if (isGameOver || !isOnBoard(fieldIndex) || !isFree(fieldIndex)) {
             return false;
         }
-        board[fieldIndex] = currentPlayer;
+        board[fieldIndex] = currentFieldValue;
         if (hasPlayerWon()) {
-            winner = currentPlayer;
+            winnerValue = currentFieldValue;
             isGameOver = true;
         } else if (isBoardFull()) {
             isGameOver = true;
@@ -64,20 +73,20 @@ public class TicTacToe {
     }
 
     private boolean isFree(int fieldIndex) {
-        return board[fieldIndex] == EMPTY;
+        return board[fieldIndex] == FieldValue.EMPTY;
     }
 
     private void togglePlayer() {
-        if (currentPlayer == PLAYER_X) {
-            currentPlayer = PLAYER_O;
+        if (currentFieldValue == FieldValue.X) {
+            currentFieldValue = FieldValue.O;
         } else {
-            currentPlayer = PLAYER_X;
+            currentFieldValue = FieldValue.X;
         }
     }
 
     private boolean isBoardFull() {
-        for (byte field : board) {
-            if (field == EMPTY) {
+        for (FieldValue field : board) {
+            if (field == FieldValue.EMPTY) {
                 return false;
             }
         }
@@ -86,9 +95,9 @@ public class TicTacToe {
 
     private boolean hasPlayerWon() {
         for (int[] winningSequence : winningSequences) {
-            if (board[winningSequence[0]] == currentPlayer
-                    && board[winningSequence[1]] == currentPlayer
-                    && board[winningSequence[2]] == currentPlayer) {
+            if (board[winningSequence[0]] == currentFieldValue
+                    && board[winningSequence[1]] == currentFieldValue
+                    && board[winningSequence[2]] == currentFieldValue) {
                 return true;
             }
         }
@@ -96,16 +105,16 @@ public class TicTacToe {
     }
 
     public void reset() {
-        Arrays.fill(board, EMPTY);
-        currentPlayer = PLAYER_X;
-        winner = EMPTY;
+        Arrays.fill(board, FieldValue.EMPTY);
+        currentFieldValue = FieldValue.X;
+        winnerValue = FieldValue.EMPTY;
         isGameOver = false;
     }
 
     public String getWinner() {
-        return switch (winner) {
-            case PLAYER_X -> "X wins";
-            case PLAYER_O -> "O wins";
+        return switch (winnerValue) {
+            case X -> "X wins";
+            case O -> "O wins";
             default -> "Draw";
         };
     }
