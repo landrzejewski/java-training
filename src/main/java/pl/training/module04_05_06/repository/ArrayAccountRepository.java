@@ -33,14 +33,11 @@ public class ArrayAccountRepository implements AccountRepository {
 
     @Override
     public Account findByNumber(String number) {
-        int currentIndex = 0;
-        if (currentIndex < index) {
-            do {
-                var account = accounts[currentIndex];
-                if (account.hasNumber(number)) {
-                    return account;
-                }
-            } while (currentIndex < index);
+        for (int currentIndex = 0; currentIndex < index; currentIndex++) {
+            var account = accounts[currentIndex];
+            if (account.hasNumber(number)) {
+                return account;
+            }
         }
         return null;
     }
