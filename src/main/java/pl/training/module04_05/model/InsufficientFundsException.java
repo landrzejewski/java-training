@@ -1,4 +1,4 @@
-package pl.training.module04_05_06;
+package pl.training.module04_05.model;
 
 public class InsufficientFundsException extends Exception {
 }
