@@ -1,8 +1,6 @@
 package pl.training.module04_05;
 
-import pl.training.module04_05.model.Currency;
-import pl.training.module04_05.model.InsufficientFundsException;
-import pl.training.module04_05.model.Money;
+import pl.training.module04_05.model.*;
 import pl.training.module04_05.repository.AccountRepository;
 import pl.training.module04_05.repository.ArrayAccountRepository;
 
@@ -11,7 +9,7 @@ public class Application {
     private static final Currency DEFAULT_CURRENCY = Currency.PLN;
 
     public static void main(String[] args) {
-        AccountNumberGenerator accountNumberGenerator = new IncrementalAccountNumberGenerator();
+        AccountNumberGenerator accountNumberGenerator = new UuidAccountNumberGenerator(); // new IncrementalAccountNumberGenerator();
         AccountRepository accountRepository = new ArrayAccountRepository();
         var bank = new BankService(accountNumberGenerator, accountRepository);
 
@@ -32,6 +30,29 @@ public class Application {
         }
 
         bank.printReport();
+
+
+        Account account = new PremiumAccount("000001");
+        account.deposit(Money.of(10, DEFAULT_CURRENCY));
+        try {
+            account.withdraw(Money.of(200, DEFAULT_CURRENCY));
+        } catch (InsufficientFundsException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(account);
+
+        // PremiumAccount premiumAccount = account;
+
+        /*if (account instanceof PremiumAccount) {
+            PremiumAccount premiumAccount = (PremiumAccount) account;
+            System.out.println(premiumAccount.hasDebit());
+        }*/
+
+        if (account instanceof PremiumAccount premiumAccount) {
+            premiumAccount.deposit(Money.of(10, DEFAULT_CURRENCY));
+            System.out.println(premiumAccount.hasDebit());
+        }
     }
 
 }

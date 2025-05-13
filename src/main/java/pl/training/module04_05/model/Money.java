@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public record Money(BigDecimal value, Currency currency) {
 
-    public Money {
+    /*public Money {
         if (value.signum() == -1) {
             throw new IllegalArgumentException("Money value cannot be negative");
         }
-    }
+    }*/
 
     public static Money of(double value, Currency currency) {
         return new Money(new BigDecimal(value), currency);

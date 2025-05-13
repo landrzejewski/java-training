@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Account {
 
     private final String number;
-    private Money balance;
+    protected Money balance;
 
     public Account(String number, Money balance) {
         this.number = number;
         this.balance = balance;
     }
 
-    public void deposit(Money amount) {
+    public final void deposit(Money amount) {
         balance = balance.add(amount);
     }
 
@@ -49,6 +49,14 @@ public class Account {
     @Override
     public int hashCode() {
         return Objects.hash(number, balance);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "number='" + number + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 
 }
