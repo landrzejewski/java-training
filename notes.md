@@ -1,0 +1,2 @@
+Napisz program do zarządzania zadaniami (todo). Zadania powinny zawierać mazwę, opis i informaje o wykonaniu/zakończeniu (boolean).
+Program powinien pozwalać na dodawanie zadań, ich wypisanie na konsoli oraz oznaczania jako wykonane
