@@ -8,6 +8,7 @@ public class Application {
         // thread.setDaemon(true);
         thread.start();
         System.out.printf("%s thread before join\n", Thread.currentThread().getName());
+
         thread.interrupt();
         // thread.join();
         //thread.join(1_000); // dołączenie wątku main do Thread-0
