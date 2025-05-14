@@ -1,4 +1,4 @@
-package pl.training.concurrency.locks;
+package pl.training.module08.locks;
 
 import java.util.LinkedList;
 import java.util.Queue;

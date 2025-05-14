@@ -1,6 +1,6 @@
-package pl.training.concurrency.creating_threads;
+package pl.training.module08.creating_threads;
 
-public class PrintTimeThread extends Thread {
+public class PrintTime implements Runnable {
 
     @Override
     public void run() {

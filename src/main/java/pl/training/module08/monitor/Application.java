@@ -1,4 +1,4 @@
-package pl.training.concurrency.monitor;
+package pl.training.module08.monitor;
 
 import java.util.LinkedList;
 import java.util.Queue;

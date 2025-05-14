@@ -1,4 +1,4 @@
-package pl.training.concurrency.monitor;
+package pl.training.module08.monitor;
 
 import java.util.Queue;
 import java.util.Random;

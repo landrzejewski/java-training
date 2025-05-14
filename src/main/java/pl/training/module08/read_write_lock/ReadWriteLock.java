@@ -1,4 +1,4 @@
-package pl.training.concurrency.read_write_lock;
+package pl.training.module08.read_write_lock;
 
 public class ReadWriteLock {
 

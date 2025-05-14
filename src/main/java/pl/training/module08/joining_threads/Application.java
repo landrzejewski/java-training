@@ -1,4 +1,4 @@
-package pl.training.concurrency.joining_threads;
+package pl.training.module08.joining_threads;
 
 public class Application {
 

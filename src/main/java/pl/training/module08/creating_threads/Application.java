@@ -1,4 +1,4 @@
-package pl.training.concurrency.creating_threads;
+package pl.training.module08.creating_threads;
 
 public class Application {
 

@@ -1,4 +1,4 @@
-package pl.training.concurrency.stopping_threads;
+package pl.training.module08.stopping_threads;
 
 public class ShutdownHook implements Runnable {
 

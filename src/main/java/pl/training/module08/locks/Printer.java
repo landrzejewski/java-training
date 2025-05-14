@@ -1,31 +1,34 @@
-package pl.training.concurrency.monitor;
+package pl.training.module08.locks;
 
 import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
 
 public class Printer implements Runnable {
 
     private static final int MAX_SLEEP_TIME = 200;
 
     private final Queue<String> printingQueue;
+    private final Lock lock;
+    private final Condition queueIsFull;
+    private final Condition queueIsEmpty;
     private final Random random = new Random();
 
-    public Printer(Queue<String> printingQueue) {
+    public Printer(Queue<String> printingQueue, Lock lock, Condition queueIsFull, Condition queueIsEmpty) {
         this.printingQueue = printingQueue;
+        this.lock = lock;
+        this.queueIsFull = queueIsFull;
+        this.queueIsEmpty = queueIsEmpty;
     }
 
     @Override
     public void run() {
         while (true) {
-            synchronized (printingQueue) {
-                waitIfQueueIsEmpty();
-                printDocument();
-                try {
-                    printingQueue.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            lock.lock();
+            waitIfQueueIsEmpty();
+            printDocument();
+            lock.unlock();
         }
     }
 
@@ -37,14 +40,14 @@ public class Printer implements Runnable {
         }
         String text = printingQueue.poll();
         System.out.printf("Printing: %s\n", text);
-        printingQueue.notifyAll();
+        queueIsFull.signalAll();
     }
 
     private void waitIfQueueIsEmpty() {
         while (printingQueue.isEmpty()) {
             try {
                 System.out.println("Queue is empty...");
-                printingQueue.wait();
+                queueIsEmpty.await();
             } catch (InterruptedException e) {
                 System.out.println("Printing was interrupted...");
             }

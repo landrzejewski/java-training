@@ -1,4 +1,4 @@
-package pl.training.concurrency.stopping_threads;
+package pl.training.module08.stopping_threads;
 
 import java.util.LinkedList;
 import java.util.List;
