@@ -1,4 +1,4 @@
-package pl.training.module_06_07.examples;
+package pl.training.module06_07.examples;
 
 
 public class Generics {
