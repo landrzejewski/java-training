@@ -1,4 +1,4 @@
-package pl.training.module06_07.model;
+package pl.training.module06.model;
 
 import java.util.Objects;
 

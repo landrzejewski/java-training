@@ -1,9 +1,9 @@
-package pl.training.module06_07;
+package pl.training.module06;
 
-import pl.training.module06_07.model.Account;
-import pl.training.module06_07.model.InsufficientFundsException;
-import pl.training.module06_07.model.Money;
-import pl.training.module06_07.repository.AccountRepository;
+import pl.training.module06.model.Account;
+import pl.training.module06.model.InsufficientFundsException;
+import pl.training.module06.model.Money;
+import pl.training.module06.repository.AccountRepository;
 
 import java.util.Currency;
 

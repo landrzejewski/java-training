@@ -1,10 +1,8 @@
-package pl.training.module06_07;
+package pl.training.module06;
 
-import pl.training.module06_07.model.*;
-import pl.training.module06_07.repository.AccountRepository;
-import pl.training.module06_07.repository.ArrayAccountRepository;
-import pl.training.module06_07.repository.ArrayListAccountRepository;
-import pl.training.module06_07.repository.HashMapAccountRepository;
+import pl.training.module06.model.*;
+import pl.training.module06.repository.AccountRepository;
+import pl.training.module06.repository.HashMapAccountRepository;
 
 import java.util.Currency;
 

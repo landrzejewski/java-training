@@ -1,4 +1,4 @@
-package pl.training.module06_07.common;
+package pl.training.module06.common;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package pl.training.module06_07;
+package pl.training.module06;
 
 public class AccountNotFoundException extends Exception {
 

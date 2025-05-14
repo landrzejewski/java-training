@@ -1,8 +1,5 @@
-package pl.training.module06_07.examples;
+package pl.training.module06.examples;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Generics {
 
