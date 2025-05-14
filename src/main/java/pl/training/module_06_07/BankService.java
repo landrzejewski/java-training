@@ -1,10 +1,10 @@
-package pl.training.module_06;
+package pl.training.module_06_07;
 
-import pl.training.module_06.model.Account;
-import pl.training.module_06.model.Currency;
-import pl.training.module_06.model.InsufficientFundsException;
-import pl.training.module_06.model.Money;
-import pl.training.module_06.repository.AccountRepository;
+import pl.training.module_06_07.model.Account;
+import pl.training.module_06_07.model.Currency;
+import pl.training.module_06_07.model.InsufficientFundsException;
+import pl.training.module_06_07.model.Money;
+import pl.training.module_06_07.repository.AccountRepository;
 
 public class BankService {
 

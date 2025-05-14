@@ -1,4 +1,4 @@
-package pl.training.module_06;
+package pl.training.module_06_07;
 
 import java.util.UUID;
 

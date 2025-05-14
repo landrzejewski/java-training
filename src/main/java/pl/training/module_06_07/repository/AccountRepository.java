@@ -1,6 +1,6 @@
-package pl.training.module_06.repository;
+package pl.training.module_06_07.repository;
 
-import pl.training.module_06.model.Account;
+import pl.training.module_06_07.model.Account;
 
 import java.util.Optional;
 
