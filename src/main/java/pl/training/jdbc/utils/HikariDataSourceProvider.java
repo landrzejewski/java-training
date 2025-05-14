@@ -1,6 +1,7 @@
 package pl.training.jdbc.utils;
 
 import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;
 
@@ -25,7 +26,7 @@ public class HikariDataSourceProvider implements DataSourceProvider {
         config.setUsername(user);
         config.setPassword(password);
         config.setMaximumPoolSize(MAX_POOL_SIZE);
-        return new com.zaxxer.hikari.HikariDataSource(config);
+        return new HikariDataSource(config);
     }
 
 }
