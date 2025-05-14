@@ -9,6 +9,7 @@ import java.util.Currency;
 
 public class BankService {
 
+    private static final Currency DEFAULT_CURRENCY = Currency.getInstance("PLN");
     private static final double DEFAULT_BALANCE = 0;
     private static final String SEPARATOR = ": ";
 
@@ -62,7 +63,7 @@ public class BankService {
                         .append(System.lineSeparator()));
         var totalBalance = repository.findAllStream()
                 .map(Account::getBalance)
-                .reduce(Money.of(0, Currency.getInstance("PLN")), Money::add);
+                .reduce(Money.of(0, DEFAULT_CURRENCY), Money::add);
         report.append("Total balance: ")
                 .append(totalBalance)
                 .append(System.lineSeparator());
