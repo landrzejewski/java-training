@@ -9,7 +9,7 @@ public class Application {
     private static final Currency DEFAULT_CURRENCY = Currency.PLN;
 
     public static void main(String[] args) {
-        AccountNumberGenerator accountNumberGenerator = new UuidAccountNumberGenerator(); // new IncrementalAccountNumberGenerator();
+        AccountNumberGenerator accountNumberGenerator =  new IncrementalAccountNumberGenerator(); // new UuidAccountNumberGenerator();
         AccountRepository accountRepository = new ArrayAccountRepository();
         var bank = new BankService(accountNumberGenerator, accountRepository);
 
@@ -29,30 +29,8 @@ public class Application {
             System.out.println("Insufficient funds");
         }
 
-        bank.printReport();
+        System.out.println(bank.generateReport());
 
-
-        Account account = new PremiumAccount("000001");
-        account.deposit(Money.of(10, DEFAULT_CURRENCY));
-        try {
-            account.withdraw(Money.of(200, DEFAULT_CURRENCY));
-        } catch (InsufficientFundsException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(account);
-
-        // PremiumAccount premiumAccount = account;
-
-        /*if (account instanceof PremiumAccount) {
-            PremiumAccount premiumAccount = (PremiumAccount) account;
-            System.out.println(premiumAccount.hasDebit());
-        }*/
-
-        if (account instanceof PremiumAccount premiumAccount) {
-            premiumAccount.deposit(Money.of(10, DEFAULT_CURRENCY));
-            System.out.println(premiumAccount.hasDebit());
-        }
     }
 
 }

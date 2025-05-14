@@ -1,6 +1,9 @@
 package pl.training.module06_07.examples;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Generics {
 
     public static void main(String[] args) {
@@ -22,7 +25,7 @@ public class Generics {
         intBox.set(100);
         System.out.println(intBox.get());
 
-        var strBox = new Wrapper<>();
+        var strBox = new Wrapper<String>();
         strBox.set("Hello Generics");
         System.out.println(strBox.get());
 

@@ -1,8 +1,12 @@
 package pl.training.module06_07.repository;
 
+import pl.training.module06_07.common.Page;
+import pl.training.module06_07.common.PageRequest;
 import pl.training.module06_07.model.Account;
 
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ArrayAccountRepository implements AccountRepository {
 
@@ -27,21 +31,24 @@ public class ArrayAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Account[] findAll() {
-        var result = new Account[index];
-        System.arraycopy(accounts, 0, result, 0, index);
-        return result;
+    public Page<Account> findAll(PageRequest pageRequest) {
+        var startIndex = pageRequest.offest();
+        var endIndex = Math.min(startIndex + pageRequest.size(), accounts.length);
+        var totalPages = (long) Math.ceil((double) accounts.length / pageRequest.size());
+        var items = Arrays.asList(Arrays.copyOfRange(accounts, startIndex, endIndex));
+        return new Page<>(items, totalPages);
+    }
+
+    @Override
+    public Stream<Account> findAllStream() {
+        return Arrays.asList(Arrays.copyOfRange(accounts, 0, index - 1)).stream();
     }
 
     @Override
     public Optional<Account> findByNumber(String number) {
-        for (int currentIndex = 0; currentIndex < index; currentIndex++) {
-            var account = accounts[currentIndex];
-            if (account.hasNumber(number)) {
-                return Optional.of(account);
-            }
-        }
-        return Optional.empty();
+        return Arrays.stream(accounts)
+                .filter(account -> account.hasNumber(number))
+                .findFirst();
     }
 
 }

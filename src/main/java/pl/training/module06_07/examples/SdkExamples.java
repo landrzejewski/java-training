@@ -32,6 +32,8 @@ public class SdkExamples {
                 .append("a")
                 .append("b")
                 .append("c")
+                .repeat("d", 5)
+                .replace(0, 2, "w")
                 .toString();
 
         // Data time
@@ -133,6 +135,7 @@ public class SdkExamples {
         fruits.add("Apple"); // Duplicate element is allowed
         fruits.remove("Apple");
         fruits.remove("Apple");
+        System.out.println("Fruits size: " + fruits.size());
 
         // Iterate using for-each loop
         for (String fruit : fruits) {
@@ -230,8 +233,19 @@ public class SdkExamples {
         }
 
 
+        interface Printer {
+
+            void print(String text);
+
+        }
+
+        Printer printer = (String country) -> System.out.println(country);
+
         // Consumer<String> task = (String country) -> System.out.println(country);
         Consumer<String> task = System.out::println;
+
+        countries.forEach(task);
+        countries.forEach((String country) -> System.out.println(country));
         countries.forEach(System.out::println);
 
         /*Arrays.asList("Alice", "Bob", "Charlie", "David")
@@ -245,14 +259,16 @@ public class SdkExamples {
 
         System.out.println("--------------------------------------------------------");
 
-        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+        List<String> names = Arrays.asList("Bob", "Alice", "Charlie", "David", "Eve");
 
         // Filter names that start with 'A' or 'D' and convert to uppercase
         names.stream()
                 //.filter(name -> name.startsWith("A") || name.startsWith("D"))
+                .filter(startWith("A", "B"))
                 .filter(minLength(3))
-                //.map(a -> a.toLowerCase())
-                .map(SdkExamples::toLowerCase)
+                //.map(name -> name.toLowerCase())
+                //.map(SdkExamples::toLowerCase)
+                .map(String::toLowerCase)
                 //.forEach(name -> System.out.println(name));
                 .sorted()
                 .forEach(System.out::println);
@@ -328,6 +344,10 @@ public class SdkExamples {
 
     public static Predicate<String> minLength(int length) {
         return text -> text.length() >= length;
+    }
+
+    public static Predicate<String> startWith(String ...prefix) {
+        return text -> Arrays.stream(prefix).anyMatch(text::startsWith);
     }
 
 }

@@ -6,9 +6,12 @@ import pl.training.module06_07.model.InsufficientFundsException;
 import pl.training.module06_07.model.Money;
 import pl.training.module06_07.repository.AccountRepository;
 
+import java.math.BigDecimal;
+
 public class BankService {
 
     private static final double DEFAULT_BALANCE = 0;
+    private static final String SEPARATOR = ": ";
 
     private final AccountNumberGenerator numberGenerator;
     private final AccountRepository repository;
@@ -50,14 +53,21 @@ public class BankService {
         }
     }
 
-    public void printReport() {
-        System.out.println("Bank accounts:");
-        var totalBalance = Money.of(DEFAULT_BALANCE, Currency.PLN); // do ulepszenia
-        for (var account : repository.findAll()) {
-            System.out.println(account.getNumber() + ": " + account.getBalance());
-            totalBalance = totalBalance.add(account.getBalance());
-        }
-        System.out.println("Total balance: " + totalBalance);
+    public String generateReport() {
+        var report = new StringBuilder("Bank accounts:").append(System.lineSeparator());
+        repository.findAllStream()
+                .forEach(account -> report
+                        .append(account.getNumber())
+                        .append(SEPARATOR)
+                        .append(account)
+                        .append(System.lineSeparator()));
+        var totalBalance = repository.findAllStream()
+                .map(Account::getBalance)
+                .reduce(Money.of(0, Currency.PLN), Money::add);
+        report.append("Total balance: ")
+                .append(totalBalance)
+                .append(System.lineSeparator());
+        return report.toString();
     }
 
 }
