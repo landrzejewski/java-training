@@ -41,12 +41,12 @@ public class ArrayAccountRepository implements AccountRepository {
 
     @Override
     public Stream<Account> findAllStream() {
-        return Arrays.asList(Arrays.copyOfRange(accounts, 0, index - 1)).stream();
+        return Arrays.stream(Arrays.copyOfRange(accounts, 0, index));
     }
 
     @Override
     public Optional<Account> findByNumber(String number) {
-        return Arrays.stream(accounts)
+        return findAllStream()
                 .filter(account -> account.hasNumber(number))
                 .findFirst();
     }

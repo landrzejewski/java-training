@@ -3,14 +3,18 @@ package pl.training.module06_07;
 import pl.training.module06_07.model.*;
 import pl.training.module06_07.repository.AccountRepository;
 import pl.training.module06_07.repository.ArrayAccountRepository;
+import pl.training.module06_07.repository.ArrayListAccountRepository;
+import pl.training.module06_07.repository.HashMapAccountRepository;
+
+import java.util.Currency;
 
 public class Application {
 
-    private static final Currency DEFAULT_CURRENCY = Currency.PLN;
+    private static final Currency DEFAULT_CURRENCY = Currency.getInstance("PLN");
 
     public static void main(String[] args) {
         AccountNumberGenerator accountNumberGenerator =  new IncrementalAccountNumberGenerator(); // new UuidAccountNumberGenerator();
-        AccountRepository accountRepository = new ArrayAccountRepository();
+        AccountRepository accountRepository = new HashMapAccountRepository(); // new ArrayListAccountRepository(); // new ArrayAccountRepository();
         var bank = new BankService(accountNumberGenerator, accountRepository);
 
         //---------------------------------------------------------------------------------------

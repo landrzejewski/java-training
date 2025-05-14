@@ -1,8 +1,10 @@
 package pl.training.module06_07.model;
 
+import java.util.Currency;
+
 public final class PremiumAccount extends Account {
 
-    private static final Money ON_START_BONUS = Money.of(100, Currency.PLN);
+    private static final Money ON_START_BONUS = Money.of(100, Currency.getInstance("PLN"));
 
     public PremiumAccount(String number) {
         super(number, ON_START_BONUS);

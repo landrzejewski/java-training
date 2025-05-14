@@ -1,12 +1,11 @@
 package pl.training.module06_07;
 
 import pl.training.module06_07.model.Account;
-import pl.training.module06_07.model.Currency;
 import pl.training.module06_07.model.InsufficientFundsException;
 import pl.training.module06_07.model.Money;
 import pl.training.module06_07.repository.AccountRepository;
 
-import java.math.BigDecimal;
+import java.util.Currency;
 
 public class BankService {
 
@@ -63,7 +62,7 @@ public class BankService {
                         .append(System.lineSeparator()));
         var totalBalance = repository.findAllStream()
                 .map(Account::getBalance)
-                .reduce(Money.of(0, Currency.PLN), Money::add);
+                .reduce(Money.of(0, Currency.getInstance("PLN")), Money::add);
         report.append("Total balance: ")
                 .append(totalBalance)
                 .append(System.lineSeparator());

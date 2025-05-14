@@ -1,14 +1,17 @@
 package pl.training.module06_07.model;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 public record Money(BigDecimal value, Currency currency) {
 
-    /*public Money {
-        if (value.signum() == -1) {
-            throw new IllegalArgumentException("Money value cannot be negative");
-        }
-    }*/
+    private static final NumberFormat FORMATTER = NumberFormat.getCurrencyInstance(Locale.getDefault());
+
+    public Money {
+        FORMATTER.setCurrency(currency);
+    }
 
     public static Money of(double value, Currency currency) {
         return new Money(new BigDecimal(value), currency);
@@ -33,6 +36,11 @@ public record Money(BigDecimal value, Currency currency) {
         if (currency != money.currency()) {
             throw new IllegalArgumentException("Currency mismatch");
         }
+    }
+
+    @Override
+    public String toString() {
+        return FORMATTER.format(value);
     }
 
 }
