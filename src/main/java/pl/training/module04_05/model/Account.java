@@ -1,4 +1,4 @@
-package pl.training.module04.model;
+package pl.training.module04_05.model;
 
 import java.util.Objects;
 
@@ -26,6 +26,14 @@ public class Account {
         if (balance.isGreaterOrEqual(money)) {
             balance = balance.subtract(money);
         }
+    }
+
+    public boolean hasNumber(String number) {
+        return this.number.equals(number);
+    }
+
+    public String getNumber() {
+        return number;
     }
 
     @Override

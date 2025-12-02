@@ -1,4 +1,4 @@
-package pl.training.module04.model;
+package pl.training.module04_05.model;
 
 public class PremiumAccount extends Account {
 
