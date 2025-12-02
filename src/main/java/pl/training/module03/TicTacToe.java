@@ -28,10 +28,12 @@ public class TicTacToe {
         if (hasWinningSequence()) {
             isGameEnded = true;
             System.out.println("Player " + player + " won the game!");
+            return true;
         }
         if (isBoardFull()) {
             isGameEnded = true;
             System.out.println("Board is full - draw");
+            return true;
         }
         player = player == 'X' ? 'O' : 'X';
         return true;

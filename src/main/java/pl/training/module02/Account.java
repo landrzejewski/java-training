@@ -9,7 +9,7 @@ public class Account {
     /*public pl.training.module02.Account() {
         isActive = true;
     }*/
-
+    
     public void deposit(double amount) {
         balance = balance + amount;
     }
