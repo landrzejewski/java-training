@@ -3,6 +3,7 @@ package pl.training.module06.model;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Currency;
+import java.util.Locale;
 
 public record Money(BigDecimal value, Currency currency) {
 
@@ -10,6 +11,10 @@ public record Money(BigDecimal value, Currency currency) {
 
     public Money {
         FORMATTER.setCurrency(currency);
+    }
+
+    public static Money of(double value) {
+        return new Money(BigDecimal.valueOf(value), Currency.getInstance(Locale.getDefault()));
     }
 
     public Money add(Money money) {

@@ -27,8 +27,13 @@ public class Account {
     }
 
     public void withdraw(Money money) {
-        if (balance.isGreaterOrEqual(money)) {
-            balance = balance.subtract(money);
+        checkBalance(money);
+        balance = balance.subtract(money);
+    }
+
+    private void checkBalance(Money amount) {
+        if (amount.isGreaterOrEqual(balance)) {
+            throw new InsufficientFundsException();
         }
     }
 

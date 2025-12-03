@@ -6,7 +6,7 @@ public class IncrementalAccountNumberGenerator implements AccountNumberGenerator
 
     @Override
     public String next() {
-        return "" + ++counter;
+        return String.format("%016d", counter++);
     }
 
     @Override

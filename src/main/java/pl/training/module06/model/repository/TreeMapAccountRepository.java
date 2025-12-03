@@ -2,28 +2,22 @@ package pl.training.module06.model.repository;
 
 import pl.training.module06.model.Account;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public class ArrayListAccountRepository implements AccountRepository {
+public class TreeMapAccountRepository implements AccountRepository {
 
-    private final List<Account> accounts = new ArrayList<>();
+    private final Map<String, Account> accounts = new TreeMap<>();
 
     @Override
     public Account save(Account account) {
-        accounts.add(account);
+        accounts.put(account.getNumber(), account);
         return account;
     }
 
     @Override
     public Optional<Account> findByNumber(String accountNumber) {
-        for (Account account : accounts) {
-            if (account.hasNumber(accountNumber)) {
-                return Optional.of(account);
-            }
-        }
-        return Optional.empty();
+        var account = accounts.get(accountNumber);
+        return Optional.ofNullable(account);
     }
 
     @Override
@@ -31,7 +25,7 @@ public class ArrayListAccountRepository implements AccountRepository {
         var startIndex = pageRequest.index() * pageRequest.size();
         var endIndex = Math.min(startIndex + pageRequest.size(), accounts.size() - startIndex);
         var totalPages = (long) Math.ceil((double) count() / pageRequest.size());
-        var items = accounts.subList(startIndex, endIndex);
+        var items = ((List<Account>) accounts.values()).subList(startIndex, endIndex);
         return new Page(items, totalPages);
     }
 

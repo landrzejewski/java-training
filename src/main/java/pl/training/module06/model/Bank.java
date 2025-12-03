@@ -7,12 +7,15 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Locale;
 
+import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.ZERO;
+
 public class Bank {
 
-    private static final Money NEW_ACCOUNT_BONUS = new Money(BigDecimal.TEN, Currency.getInstance(Locale.getDefault()));
+    private static final Money NEW_ACCOUNT_BONUS = new Money(TEN, Currency.getInstance(Locale.getDefault()));
 
-    private AccountNumberGenerator numberGenerator;
-    private AccountRepository repository;
+    private final AccountNumberGenerator numberGenerator;
+    private final AccountRepository repository;
 
     public Bank(AccountNumberGenerator numberGenerator, AccountRepository repository) {
         this.numberGenerator = numberGenerator;
@@ -30,37 +33,40 @@ public class Bank {
     }
 
     public boolean deposit(String accountNumber, Money amount) {
-        var account = repository.findByNumber(accountNumber);
-        if (account == null) {
-            return false;
-        }
+        var account = findAccount(accountNumber);
         account.deposit(amount);
         return true;
     }
 
     public boolean withdraw(String accountNumber, Money amount) {
-        var account = repository.findByNumber(accountNumber);
-        if (account == null) {
-            return false;
-        }
+        var account = findAccount(accountNumber);
         account.withdraw(amount);
         return true;
     }
 
+    private Account findAccount(String accountNumber) {
+        var result = repository.findByNumber(accountNumber);
+        if (result.isEmpty()) {
+            throw new AccountNotFoundException(accountNumber);
+        }
+        return result.get();
+    }
+
     public void transfer(String fromAccountNumber, String toAccountNumber, Money amount) {
-        if (withdraw(fromAccountNumber, amount)) {  // todo tx
-            var isSuccess = deposit(toAccountNumber, amount);
-            if (!isSuccess) {
-                deposit(fromAccountNumber, amount);
-            }
+        withdraw(fromAccountNumber, amount);
+        try {
+            deposit(toAccountNumber, amount);
+        } catch (AccountNotFoundException accountNotFoundException) {
+            deposit(fromAccountNumber, amount);
+            throw accountNotFoundException;
         }
     }
 
     public BankSummary getSummary() {
-        var totalBalance = new Money(BigDecimal.TEN, Currency.getInstance(Locale.getDefault()));
-        for (var account: repository.findAll()) {
+        var totalBalance = new Money(ZERO, Currency.getInstance(Locale.getDefault()));
+        /*for (var account: repository.findAll()) {
             totalBalance = totalBalance.add(account.balance);
-        }
+        }*/
         return new BankSummary(repository.count(), totalBalance);
     }
 
