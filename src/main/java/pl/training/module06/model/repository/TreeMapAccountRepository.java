@@ -3,6 +3,7 @@ package pl.training.module06.model.repository;
 import pl.training.module06.model.Account;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class TreeMapAccountRepository implements AccountRepository {
 
@@ -27,6 +28,11 @@ public class TreeMapAccountRepository implements AccountRepository {
         var totalPages = (long) Math.ceil((double) count() / pageRequest.size());
         var items = ((List<Account>) accounts.values()).subList(startIndex, endIndex);
         return new Page(items, totalPages);
+    }
+
+    @Override
+    public Stream<Account> findAll() {
+        return accounts.values().stream();
     }
 
     @Override

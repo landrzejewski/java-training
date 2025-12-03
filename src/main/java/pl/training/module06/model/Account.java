@@ -26,12 +26,12 @@ public class Account {
         balance = balance.add(money);
     }
 
-    public void withdraw(Money money) {
+    public void withdraw(Money money) throws InsufficientFundsException {
         checkBalance(money);
         balance = balance.subtract(money);
     }
 
-    private void checkBalance(Money amount) {
+    private void checkBalance(Money amount) throws InsufficientFundsException {
         if (amount.isGreaterOrEqual(balance)) {
             throw new InsufficientFundsException();
         }

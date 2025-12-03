@@ -241,8 +241,8 @@ public class SdkExamples {
 
         Printer printer = (String country) -> System.out.println(country);
 
-        // Consumer<String> task = (String country) -> System.out.println(country);
-        Consumer<String> task = System.out::println;
+        Consumer<String> task = (String country) -> System.out.println(country);
+        //Consumer<String> task = System.out::println;
 
         countries.forEach(task);
         countries.forEach((String country) -> System.out.println(country));
