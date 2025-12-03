@@ -3,9 +3,13 @@ package pl.training.module06.model;
 import pl.training.module06.model.generator.AccountNumberGenerator;
 import pl.training.module06.model.repository.AccountRepository;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Locale;
+
 public class Bank {
 
-    private static final Money NEW_ACCOUNT_BONUS = new Money(100, Currency.PLN);
+    private static final Money NEW_ACCOUNT_BONUS = new Money(BigDecimal.TEN, Currency.getInstance(Locale.getDefault()));
 
     private AccountNumberGenerator numberGenerator;
     private AccountRepository repository;
@@ -53,7 +57,7 @@ public class Bank {
     }
 
     public BankSummary getSummary() {
-        var totalBalance = new Money(0, Currency.PLN);
+        var totalBalance = new Money(BigDecimal.TEN, Currency.getInstance(Locale.getDefault()));
         for (var account: repository.findAll()) {
             totalBalance = totalBalance.add(account.balance);
         }

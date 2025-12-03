@@ -1,11 +1,9 @@
 package pl.training.module06;
 
 import pl.training.module06.model.Bank;
-import pl.training.module06.model.Money;
 import pl.training.module06.model.generator.AccountNumberGenerator;
 import pl.training.module06.model.generator.UuidAccountNumberGenerator;
 import pl.training.module06.model.repository.AccountRepository;
-import pl.training.module06.model.repository.ArrayAccountRepository;
 
 public class Application {
 
@@ -19,10 +17,10 @@ public class Application {
         String secondAccountNumber = bank.createAccount(true)
                 .getNumber();
 
-        bank.deposit(firstAccountNumber, new Money(100, Currency.PLN));
-        bank.deposit(secondAccountNumber, new Money(100, Currency.PLN));
-        bank.withdraw(firstAccountNumber, new Money(50, Currency.PLN));
-        bank.transfer(secondAccountNumber, firstAccountNumber, new Money(10, Currency.PLN));
+//        bank.deposit(firstAccountNumber, new Money(100, Currency.PLN));
+//        bank.deposit(secondAccountNumber, new Money(100, Currency.PLN));
+//        bank.withdraw(firstAccountNumber, new Money(50, Currency.PLN));
+//        bank.transfer(secondAccountNumber, firstAccountNumber, new Money(10, Currency.PLN));
 
         var summary = bank.getSummary();
         System.out.println(summary);

@@ -2,13 +2,15 @@ package pl.training.module06.model.repository;
 
 import pl.training.module06.model.Account;
 
+import java.util.Optional;
+
 public interface AccountRepository {
 
     Account save(Account account);
 
-    Account findByNumber(String accountNumber);
+    Optional<Account> findByNumber(String accountNumber);
 
-    Account[] findAll();
+    Page findAll(PageRequest pageRequest);
 
     long count();
     
