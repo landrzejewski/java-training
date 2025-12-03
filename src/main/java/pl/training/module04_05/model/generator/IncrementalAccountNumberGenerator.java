@@ -9,4 +9,9 @@ public class IncrementalAccountNumberGenerator implements AccountNumberGenerator
         return "" + ++counter;
     }
 
+    @Override
+    public String getVersion() {
+        return AccountNumberGenerator.super.getVersion() + "-1";
+    }
+
 }

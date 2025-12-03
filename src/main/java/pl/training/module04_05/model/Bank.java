@@ -1,6 +1,8 @@
 package pl.training.module04_05.model;
 
 import pl.training.module04_05.model.generator.AccountNumberGenerator;
+import pl.training.module04_05.model.generator.IncrementalAccountNumberGenerator;
+import pl.training.module04_05.model.generator.UuidAccountNumberGenerator;
 import pl.training.module04_05.model.repository.AccountRepository;
 
 public class Bank {
